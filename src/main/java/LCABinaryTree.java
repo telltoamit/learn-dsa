@@ -11,14 +11,14 @@ public class LCABinaryTree {
      * 8    9
      *
      * */
-        TreeNode root  = new TreeNode(2);
-        root.left= new TreeNode(3);
-        root.right = new TreeNode(4);
-        root.left.left = new TreeNode(5);
-        root.left.right = new TreeNode(6);
-        root.right.right = new TreeNode(7);
-        root.left.left.left = new TreeNode(8);
-        root.left.left.right = new TreeNode(9);
+        Node root  = new Node(2);
+        root.left= new Node(3);
+        root.right = new Node(4);
+        root.left.left = new Node(5);
+        root.left.right = new Node(6);
+        root.right.right = new Node(7);
+        root.left.left.left = new Node(8);
+        root.left.left.right = new Node(9);
         LCABinaryTree tree = new LCABinaryTree();
         assertThat(tree.lca(root, 8, 9) == 5);
         assertThat(tree.lca(root, 8, 7) == 2);
@@ -39,7 +39,7 @@ public class LCABinaryTree {
         }
     }
 
-    public int lca(TreeNode root, int node1, int node2){
+    public int lca(Node root, int node1, int node2){
 
         if(root == null) return -1;
         if(root.data == node1 || root.data == node2) return root.data;
@@ -51,13 +51,13 @@ public class LCABinaryTree {
     }
 }
 
-class Node {
+class TreeNode {
 
     int data;
-    TreeNode left;
-    TreeNode right;
+    Node left;
+    Node right;
 
-    Node(int data) {
+    TreeNode(int data) {
         this.data = data;
         this.left = this.right = null;
     }

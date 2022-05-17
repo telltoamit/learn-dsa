@@ -10,18 +10,18 @@ public class DiameterBinaryTree {
        10
        
       */
-      TreeNode root  = new TreeNode(2);
-      root.left = new TreeNode(3);
-      root.right = new TreeNode(4);
-      root.left.left = new TreeNode(5);
-      root.left.right = new TreeNode(6);
-      root.right.left = new TreeNode(7);
-      root.right.right = new TreeNode(8);
-      root.left.left.left = new TreeNode(9);
-      root.left.left.left.left = new TreeNode(10);
+      Node root  = new Node(2);
+      root.left = new Node(3);
+      root.right = new Node(4);
+      root.left.left = new Node(5);
+      root.left.right = new Node(6);
+      root.right.left = new Node(7);
+      root.right.right = new Node(8);
+      root.left.left.left = new Node(9);
+      root.left.left.left.left = new Node(10);
       System.out.println(findDiameter(root));
     }
-   public static int findDiameter(TreeNode root) {
+   public static int findDiameter(Node root) {
 //          if(root ==  null) return 0;
 //           int dLeft = findDiameter(root.left);
 //           int dRight = findDiameter(root.right);
@@ -31,7 +31,7 @@ public class DiameterBinaryTree {
            height(root);
            return ans;
    }
-   private static int  height(TreeNode root) {
+   private static int  height(Node root) {
        if(root ==  null ) return 0;
        int lHeight = height(root.left);
        int rHeight = height(root.right);
@@ -39,12 +39,12 @@ public class DiameterBinaryTree {
        return Math.max(1+lHeight,1+rHeight);
    }
 }
-class TreeNode {
-  TreeNode left;
-  TreeNode right;
+class Node {
+  Node left;
+  Node right;
   int data;
 
-  TreeNode(int data){
+  Node(int data){
     this.data = data;
     left=right=null;
   }

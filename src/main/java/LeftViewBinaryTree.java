@@ -1,45 +1,51 @@
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
+
 public class LeftViewBinaryTree{
   
   public static void main(String args[]){
-     Node root = new Node(2);
-     root.left = new Node(3);
-     root.right = new Node(4);
-     root.left.left = new Node(5);
-    root.left.right = new Node(6);
-    root.right.left = new Node(7);
-    root.right.right = new Node(8);
-    root.right.right.right = new Node(9);
-    Node dummy = null;
+     LeftViewNode root = new LeftViewNode(2);
+     root.left = new LeftViewNode(3);
+     root.right = new LeftViewNode(4);
+     root.left.left = new LeftViewNode(5);
+    root.left.right = new LeftViewNode(6);
+    root.right.left = new LeftViewNode(7);
+    root.right.right = new LeftViewNode(8);
+    root.right.right.right = new LeftViewNode(9);
+    LeftViewNode dummy = new LeftViewNode(-1);
     printLeftViewBinaryTree(root,dummy);
   
   }
   
-  public static void printLeftViewBinaryTree(Node root,dummy){
-    Queue<Node> queue = new ArrayDeque<>();
-    queue.add(root);//2
-    queue.add(dummy);//null,2
-    while(!queue.isEmpty()){ // true,true
-      Node top = queue.poll(); //2 -> 3 >4 > 5
-      if(queue.poll() == null) // true, true, false, true
-        System.out.print(top.data);  //2, 3 > > 5
-      if(top.left != null) // 3 != null,  5 != null > 7!= null
-          queue.add(top.left);  // 5,4 > 7,6,null,5
-          queue.add(dummy);     // 3, null -> null,5,4 > null, 7, 6, null, 5
-      if(top.right != null)    // 4  != null > 6!= null > 8 != null
-        queue.add(top.right);   //4,null,3 > 6,null,5,4 > 8, null, 7, 6, null, 5
+  public static void printLeftViewBinaryTree(LeftViewNode root, LeftViewNode dummy) {
+    ArrayList<LeftViewNode> list = new ArrayList<>();
+    printLevel(root, 0, list);
+    for (int level =0;level < list.size();level++)
+        System.out.print(list.get(level).data);
     }
-    
-    
-  
-  }
-}
+//    private static int getHeight (LeftViewNode root){
+//      if (root == null) return 0;
+//      return Math.max(getHeight(root.left) + 1, getHeight(root.right) + 1);
+//    }
+    private static void printLevel(LeftViewNode root,int level, ArrayList<LeftViewNode > list){
 
-Node {
+      if (root == null) return;
+      if (list.get(level) == null) {
+        list.set(level, root);
+//        System.out.print(root.data);
+      }
+      printLevel(root.left, level + 1, list);
+      printLevel(root.right, level + 1, list);
+    }
+  }
+
+class LeftViewNode {
   int data;
-  Node left;
-  Node right;
-  
-  Node(int data){
+  LeftViewNode left;
+  LeftViewNode right;
+
+  LeftViewNode(int data){
     this.data = data;
     left=right=null;
   }
